@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-nov-2015 13:17:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.uaemex.model.Producto" table="Producto" catalog="sesion_08" optimistic-lock="version">
+        <id name="idProducto" type="java.lang.Integer">
+            <column name="idProducto" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="150" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="150" />
+        </property>
+        <property name="unidad" type="string">
+            <column name="Unidad" length="45" />
+        </property>
+        <property name="precioUnitario" type="java.lang.Float">
+            <column name="PrecioUnitario" precision="12" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

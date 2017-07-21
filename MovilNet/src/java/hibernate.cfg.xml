@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/movilNet?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">mnuser</property>
+    <property name="hibernate.connection.password">m0v1ln3t</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping resource="hibernate/pojos/Users.hbm.xml"/>
+    <mapping resource="hibernate/pojos/Address.hbm.xml"/>
+    <mapping resource="hibernate/pojos/ListCity.hbm.xml"/>
+    <mapping resource="hibernate/pojos/Login.hbm.xml"/>
+    <mapping resource="hibernate/pojos/OrderPhone.hbm.xml"/>
+    <mapping resource="hibernate/pojos/ListState.hbm.xml"/>
+    <mapping resource="hibernate/pojos/Phone.hbm.xml"/>
+    <mapping resource="hibernate/pojos/ListTrademark.hbm.xml"/>
+    <mapping resource="hibernate/pojos/ListModel.hbm.xml"/>
+    <mapping resource="hibernate/pojos/ListTown.hbm.xml"/>
+    <mapping resource="hibernate/pojos/UserType.hbm.xml"/>
+    <mapping resource="hibernate/pojos/ListOs.hbm.xml"/>
+    <mapping resource="hibernate/pojos/ListCountry.hbm.xml"/>
+    <mapping resource="hibernate/pojos/Order.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

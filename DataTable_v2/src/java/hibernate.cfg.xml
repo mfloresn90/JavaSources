@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">MyNewPass</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="com/ditamex/model/Language.hbm.xml"/>
+    <mapping resource="com/ditamex/model/FilmText.hbm.xml"/>
+    <mapping resource="com/ditamex/model/City.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Rental.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Payment.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Inventory.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Staff.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Address.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Actor.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Store.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Country.hbm.xml"/>
+    <mapping resource="com/ditamex/model/FilmCategory.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Category.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Customer.hbm.xml"/>
+    <mapping resource="com/ditamex/model/Film.hbm.xml"/>
+    <mapping resource="com/ditamex/model/FilmActor.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+
+        <ui:composition template="./../WEB-INF/restrito.xhtml">
+
+            <ui:define name="titulo">
+                Catálogo de Usuarios
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <h:form prependId="false">
+
+                    <p:dataTable value="#{usersBean.readAllUsers}"
+                                 var="us"
+                                 id="users"
+                                 disabledSelection="true"
+                                 editMode="false"
+                                 rowKey="#{us.idUsers}"
+                                 emptyMessage="Ningun usuario"
+                                 rows="12"
+                                 lazy="true"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 scrollable="true"
+                                 scrollHeight="350"
+                                 selectionMode="single" >
+
+                        <p:column headerText="Privilegio" >
+                            <h:outputText value="#{userTypeBean.readUserTypeById(us.userTypeIdUserType).descType}"/>
+                        </p:column>
+
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{us.userName}"/>
+                        </p:column>
+
+                        <p:column headerText="Apellidos" >
+                            <h:outputText value="#{us.userLastName}"/>
+                        </p:column>
+
+                        <p:column headerText="E-mail" >
+                            <h:outputText value="#{us.userEmail}"/>
+                        </p:column>
+
+                        <p:column headerText="Registro" >
+                            <h:outputText value="#{us.userRegistrationDate}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Compras"/>
+                            </f:facet>
+                            <h:link value="Revisar" outcome="order" >
+                                <f:param name="idUserName" value="#{us.idUsers}" />
+                            </h:link>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

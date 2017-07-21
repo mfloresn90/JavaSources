@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="movilNet"/>
+  <table-filter match-name="Login"/>
+  <table-filter match-name="Order"/>
+  <table-filter match-name="OrderPhone"/>
+  <table-filter match-name="ListModel"/>
+  <table-filter match-name="UserType"/>
+  <table-filter match-name="ListCountry"/>
+  <table-filter match-name="Users"/>
+  <table-filter match-name="Address"/>
+  <table-filter match-name="Phone"/>
+  <table-filter match-name="ListTown"/>
+  <table-filter match-name="ListState"/>
+  <table-filter match-name="ListCity"/>
+  <table-filter match-name="ListOS"/>
+  <table-filter match-name="ListTrademark"/>
+</hibernate-reverse-engineering>

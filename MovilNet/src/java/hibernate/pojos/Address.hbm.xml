@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.Address" table="Address" catalog="movilNet" optimistic-lock="version">
+        <id name="idAddress" type="java.lang.Integer">
+            <column name="idAddress" />
+            <generator class="identity" />
+        </id>
+        <property name="idListCity" type="int">
+            <column name="idListCity" not-null="true" />
+        </property>
+        <property name="idUsers" type="int">
+            <column name="idUsers" not-null="true" />
+        </property>
+        <property name="street" type="string">
+            <column name="street" length="45" not-null="true" />
+        </property>
+        <property name="betweenStreetA" type="string">
+            <column name="betweenStreetA" length="45" not-null="true" />
+        </property>
+        <property name="betweenStreetB" type="string">
+            <column name="betweenStreetB" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

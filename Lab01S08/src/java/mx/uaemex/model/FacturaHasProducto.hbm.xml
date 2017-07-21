@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-nov-2015 13:17:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.uaemex.model.FacturaHasProducto" table="Factura_has_Producto" catalog="sesion_08" optimistic-lock="version">
+        <composite-id name="id" class="mx.uaemex.model.FacturaHasProductoId">
+            <key-property name="numFactura" type="int">
+                <column name="numFactura" />
+            </key-property>
+            <key-property name="idProducto" type="int">
+                <column name="idProducto" />
+            </key-property>
+        </composite-id>
+        <property name="cantidad" type="java.lang.Integer">
+            <column name="Cantidad" />
+        </property>
+        <property name="precioTotal" type="java.lang.Float">
+            <column name="PrecioTotal" precision="12" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

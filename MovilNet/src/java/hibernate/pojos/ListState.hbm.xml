@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.ListState" table="ListState" catalog="movilNet" optimistic-lock="version">
+        <id name="idListState" type="java.lang.Integer">
+            <column name="idListState" />
+            <generator class="identity" />
+        </id>
+        <property name="idListCountry" type="int">
+            <column name="idListCountry" not-null="true" />
+        </property>
+        <property name="stateName" type="string">
+            <column name="stateName" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

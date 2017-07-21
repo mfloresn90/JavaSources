@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+
+        <ui:composition template="./WEB-INF/publico.xhtml">
+
+            <ui:define name="titulo">
+                Iniciar Sesión
+            </ui:define>
+
+            <ui:define name="conteudo">
+                
+                <h:form id="acceso">
+                    <p:focus context="@form"/>
+
+                    <p:spacer height="50"/>
+
+                    <p:fieldset legend="Iniciar sesión" style="width: 100px; margin:0 auto">
+                        <p:messages  closable="true"/>
+                        <p:panelGrid columns="2" style="width: 400px;" >
+                            <p:outputLabel value="E-mail: " for="usuario"/>
+                            <p:inputText id="usuario" 
+                                         value="#{loginBean.loginName}"
+                                         required="true"
+                                         requiredMessage="Se requiere e-mail"
+                                         placeholder="Correo electrónico"/>
+
+                            <p:outputLabel value="Contraseña: " for="senha"/>
+                            <p:password id="senha"
+                                        value="#{loginBean.loginPassword}"
+                                        required="true"
+                                        requiredMessage="Se requiere contraseña"
+                                        placeholder="Contraseña"/>
+
+                            <h:outputLabel value=""/>
+                            <p:commandButton value="Entrar"
+                                             action="#{loginBean.findLoginUser()}"
+                                             update="@form"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             />
+                            <h:outputLabel value=""/>
+                            
+                        </p:panelGrid>
+                    </p:fieldset>
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

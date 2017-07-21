@@ -1,0 +1,48 @@
+/*
+ * BaseDAO.java
+ *
+ * Created on 16 de diciembre 2009, 9:42 AM
+ *
+ * To change this template, choose Tools | Template Manager
+ * and open the template in the editor.
+ */
+
+package modelo.dao;
+
+import java.sql.*;
+
+/**
+ *
+ * @author Administrador
+ */
+public class BaseDAO {
+    protected Connection conn;
+    
+    /** Creates a new instance of BaseDAO */
+    public BaseDAO() {
+        String usr = "root";
+        String pwd = "root";
+        String url = "jdbc:mysql://localhost:3306/inventario";
+        String driver = "com.mysql.jdbc.Driver";
+        try {
+           Class.forName(driver) ;
+           conn = DriverManager.getConnection(url, usr, pwd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    protected void cerrar(PreparedStatement ps) throws Exception {
+        if (ps != null) {
+            ps.close();
+        }
+    }
+
+    protected void cerrar(ResultSet rs) throws Exception {
+        if (rs != null) {
+            rs.close();
+        }
+    }
+    
+    
+}

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+
+        <ui:composition template="./../WEB-INF/restrito.xhtml">
+
+            <ui:define name="titulo">
+                Consulta de Modelos Mas Comprados
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <h:form>
+                    <p:commandButton id="findModel"
+                                     icon="ui-icon-circle-plus"
+                                     value="Nueva Busqueda"
+                                     action="#{listModelBean.clearFields()}"
+                                     onclick="PF('dlgFindModels').show();" />
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgFindModels" widgetVar="dlgFindModels" resizable="false" header="Buscar Modelo" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="Escribe el mes (numero) " />
+                            <p:inputText id="addName" value="#{listModelBean.monthPurchase}" />
+                            <p:commandButton value="Buscar"
+                                             action="#{listModelBean.getModelsMostPurchased(listModelBean.monthPurchase)}"
+                                             icon="ui-icon-disk"
+                                             update="modelTable" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <p:panel id="listaPanel" header="Lista de Modelos mas vendidos" style="margin-bottom:20px">
+
+                    <h:form prependId="false">
+
+                        <p:dataTable value="#{listModelBean.getModelsMostPurchased(listModelBean.monthPurchase)}"
+                                     var="ltml"
+                                     id="modelTable"
+                                     disabledSelection="true"
+                                     editMode="false"
+                                     rowKey="#{ltml.idListModel}"
+                                     emptyMessage="Ningun modelo mas vendido"
+                                     rows="12"
+                                     lazy="true"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     scrollable="true"
+                                     scrollHeight="350"
+                                     selectionMode="single" >
+
+                            <p:column headerText="ID" >
+                                <h:outputText value="#{ltml.idListModel}"/>
+                            </p:column>
+
+                            <p:column headerText="Modelo" >
+                                <h:outputText value="#{ltml.modelName}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:chart type="bar" model="#{listModelBean.barModel}" style="height:300px"/>
+
+                        <h:commandLink>                                                        
+                            <p:graphicImage value="./../imgs/excel.png" width="24"/>
+                            <p:dataExporter type="xls" target="ltml" fileName="FilmsByCategory" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage value="./../imgs/pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="ltml" fileName="FilmsByCategory"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage value="./../imgs/csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="ltml" fileName="FilmsByCategory" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage value="./../imgs/xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="ltml" fileName="FilmsByCategory" />
+                        </h:commandLink>
+
+                    </h:form>
+
+                </p:panel>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

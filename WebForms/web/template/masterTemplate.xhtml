@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view contentType="text/html"  >
+        <h:head >
+            <f:facet name="first" >
+                <meta title="Cadena de Custodia - 2016" />
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta http-equiv="pragma" content="no-cache" />
+                <meta http-equiv="cache-control" content="no-cache" />
+                <meta http-equiv="expires" content="0" />
+
+            </f:facet>
+        </h:head>
+
+        <ui:insert name="head" />
+
+        <h:body >
+            <h:panelGroup layout="block" style="text-align: center" >
+                <ui:include src="encabezadoPaginaInicio.xhtml" />
+            </h:panelGroup>
+
+            <h:form id="mainForm" prependId="false" >
+                <h:panelGrid columns="2" >
+                    <h:panelGroup layout="block">
+                        <ui:include src="menu.xhtml" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block">
+                        <ui:insert name="content"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+
+            <ui:include src="piePaginaInicio.xhtml" />
+
+            <h:outputStylesheet library="css" name="cssLayout.css" />
+        </h:body>
+
+    </f:view>
+
+</html>

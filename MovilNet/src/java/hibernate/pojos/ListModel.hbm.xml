@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.ListModel" table="ListModel" catalog="movilNet" optimistic-lock="version">
+        <id name="idListModel" type="java.lang.Integer">
+            <column name="idListModel" />
+            <generator class="identity" />
+        </id>
+        <property name="idListTrademark" type="int">
+            <column name="idListTrademark" not-null="true" />
+        </property>
+        <property name="modelName" type="string">
+            <column name="modelName" length="45" not-null="true" />
+        </property>
+        <property name="modelDesc" type="string">
+            <column name="modelDesc" length="45" />
+        </property>
+        <property name="modelReleaseDate" type="date">
+            <column name="modelReleaseDate" length="10" />
+        </property>
+        <property name="modelPhone" type="binary">
+            <column name="modelPhone" />
+        </property>
+    </class>
+</hibernate-mapping>

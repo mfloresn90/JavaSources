@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.Users" table="Users" catalog="movilNet" optimistic-lock="version">
+        <id name="idUsers" type="java.lang.Integer">
+            <column name="idUsers" />
+            <generator class="identity" />
+        </id>
+        <property name="userTypeIdUserType" type="int">
+            <column name="UserType_idUserType" not-null="true" />
+        </property>
+        <property name="userName" type="string">
+            <column name="userName" length="45" not-null="true" />
+        </property>
+        <property name="userLastName" type="string">
+            <column name="userLastName" length="45" not-null="true" />
+        </property>
+        <property name="userEmail" type="string">
+            <column name="userEmail" length="45" not-null="true" />
+        </property>
+        <property name="userBirthday" type="date">
+            <column name="userBirthday" length="10" not-null="true" />
+        </property>
+        <property name="userPhone" type="string">
+            <column name="userPhone" length="45" />
+        </property>
+        <property name="userMobile" type="string">
+            <column name="userMobile" length="45" />
+        </property>
+        <property name="userRegistrationDate" type="timestamp">
+            <column name="userRegistrationDate" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

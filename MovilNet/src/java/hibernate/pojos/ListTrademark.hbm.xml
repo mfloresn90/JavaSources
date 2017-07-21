@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.ListTrademark" table="ListTrademark" catalog="movilNet" optimistic-lock="version">
+        <id name="idListTrademark" type="java.lang.Integer">
+            <column name="idListTrademark" />
+            <generator class="identity" />
+        </id>
+        <property name="trademarkName" type="string">
+            <column name="trademarkName" length="45" not-null="true" />
+        </property>
+        <property name="trademarkDesc" type="string">
+            <column name="trademarkDesc" length="45" />
+        </property>
+        <property name="trademarkLogo" type="binary">
+            <column name="trademarkLogo" />
+        </property>
+    </class>
+</hibernate-mapping>

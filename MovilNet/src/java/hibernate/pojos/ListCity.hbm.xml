@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.ListCity" table="ListCity" catalog="movilNet" optimistic-lock="version">
+        <id name="idListCity" type="java.lang.Integer">
+            <column name="idListCity" />
+            <generator class="identity" />
+        </id>
+        <property name="idListTown" type="int">
+            <column name="idListTown" not-null="true" />
+        </property>
+        <property name="cityName" type="string">
+            <column name="cityName" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

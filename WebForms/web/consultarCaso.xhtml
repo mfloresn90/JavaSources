@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/template/masterTemplate.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="idRespondienteForm" prependId="false" >
+            <p:messages autoUpdate="true" showDetail="true" closable="true" globalOnly="true" />
+            <p:growl id="msg" showDetail="true" />
+            <p:outputLabel id="idUserSession" value="#{respondienteSessionBean.setIdUsuario(menuManageBean.login.idUsuario)}" />
+
+            <p:dataTable id="encabezadoUo" value="#{unidadAdministrativaByUsuarioService.getHeader(menuManageBean.login.idUsuario)}"
+                         var="tblHr" emptyMessage="No existen datos" >
+                <p:column headerText="Nombre Completo">
+                    <p:outputLabel id="tblNombre" value="#{tblHr.nombre} #{tblHr.apellidoPaterno} #{tblHr.apellidoMaterno}" />
+                </p:column>
+                <p:column headerText="Unidad Administrativa">
+                    <p:outputLabel id="tblUnidadAdministrativa" value="#{tblHr.identificador}" />
+                </p:column>
+                <p:column headerText="Entidad Federativa">
+                    <p:outputLabel id="tblEntidadFederativa" value="#{tblHr.nombreEstado}" />
+                </p:column>
+                <p:column headerText="Delegación o Municipio">
+                    <p:outputLabel id="tblMunicipio" value="#{tblHr.nombreMunicipio}" />
+                </p:column>
+            </p:dataTable>
+
+            <br /><br />
+
+            <p:fieldset legend="Consultar caso" style="margin-bottom:20px">
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <p:outputLabel for="casoAveriguacion" value="Averiguación previa: " />
+                    <p:inputText id="casoAveriguacion" placeholder="Averiguación previa" value="#{respondienteSessionBean.sessionUbicacion.ubicacionCalle}"
+                                 required="true" > <f:validateRequired /> </p:inputText>
+                    <p:message for="casoAveriguacion" />
+
+                </h:panelGrid>
+
+                <br />
+                <p:separator />
+                <br />
+
+                <p:commandButton value="Buscar" icon="ui-icon-search" update="msg" action="#{ctoEstadoSessionBean.agregarEstado()}" />
+
+            </p:fieldset>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

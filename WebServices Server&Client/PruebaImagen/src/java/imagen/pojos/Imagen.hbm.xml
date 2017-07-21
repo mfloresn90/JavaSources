@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-oct-2015 11:28:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="imagen.pojos.Imagen" table="Imagen" catalog="imagen5" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="imagen" type="string">
+            <column name="imagen" length="65535" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+
+        <ui:composition template="./../WEB-INF/restrito.xhtml">
+
+            <ui:define name="titulo">
+                Catálogo de Países
+            </ui:define>
+
+            <ui:define name="conteudo">
+                
+                <p:growl id="messages" showDetail="true" />
+
+                <h:form>
+                    <p:commandButton id="newCountry"
+                                     icon="ui-icon-circle-plus"
+                                     value="Nuevo Registro"
+                                     action="#{listCountryBean.clearFields()}"
+                                     onclick="PF('dlgAddCountry').show();"
+                                     onstart="PF('statusDialog').show()" 
+                                     onsuccess="PF('statusDialog').hide();" />
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgAddCountry" widgetVar="dlgAddCountry" resizable="false" header="Registrar Pais" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="Nombre: " />
+                            <p:inputText id="addCountry" value="#{listCountryBean.countryName}" />
+                            <p:commandButton value="Guardar"
+                                             icon="ui-icon-disk"
+                                             action="#{listCountryBean.addListCountry()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="listCountry, :messages"
+                                             oncomplete="PF('dlgAddCountry').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgUpdCountry" widgetVar="dlgUpdCountry" resizable="false" header="Actualizar Pais" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="ID " />
+                            <p:inputText id="updId" value="#{listCountryBean.idListCountry}" readonly="true" />
+                            <h:outputText value="Nombre: " />
+                            <p:inputText id="updName" value="#{listCountryBean.countryName}"/>
+                            <p:commandButton value="Actualizar"
+                                             icon="ui-icon-refresh"
+                                             action="#{listCountryBean.modifyListCountry()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="listCountry, :messages"
+                                             oncomplete="PF('dlgUpdCountry').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form prependId="false">
+                    
+                    <p:dataTable value="#{listCountryBean.readAllListCountry}"
+                                 var="ltcy"
+                                 id="listCountry"
+                                 disabledSelection="true"
+                                 editMode="false"
+                                 rowKey="#{ltcy.idListCountry}"
+                                 emptyMessage="Ningun pais"
+                                 rows="12"
+                                 lazy="true"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 scrollable="true"
+                                 scrollHeight="350"
+                                 selectionMode="single" >
+
+                        <p:column headerText="ID" >
+                            <h:outputText value="#{ltcy.idListCountry}"/>
+                        </p:column>
+
+                        <p:column headerText="País" >
+                            <h:outputText value="#{ltcy.countryName}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modificar"/>
+                            </f:facet>
+                            <p:commandLink id="updCountry"
+                                           value="Modificar"
+                                           action="#{listCountryBean.prepareModifyListCountry()}" 
+                                           onclick="PF('dlgUpdCountry').show();"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Borrar"/>
+                            </f:facet>
+                            <p:commandLink id="deleteCountry"
+                                           value="Borrar"
+                                           action="#{listCountryBean.dropListCountry()}"
+                                           onclick="if (!confirm('Desea borrar #{ltcy.countryName}?'))
+                                                       return false;"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"
+                                           update="listCountry, :messages" />
+                        </p:column>
+                        
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

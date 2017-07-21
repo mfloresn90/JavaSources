@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
+
+    <h:body>
+
+        <ui:composition template="./../WEB-INF/restrito.xhtml">
+
+            <ui:define name="titulo">
+                Catálogo de Telefonos
+            </ui:define>
+
+            <ui:define name="conteudo">
+                
+                <p:growl id="messages" showDetail="true" />
+
+                <h:form>
+                    <p:commandButton id="newPhone"
+                                     icon="ui-icon-circle-plus"
+                                     value="Nuevo Registro"
+                                     action="#{phoneBean.clearFields()}"
+                                     onclick="PF('dlgAddPhone').show();"
+                                     onstart="PF('statusDialog').show()" 
+                                     onsuccess="PF('statusDialog').hide();" />
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgAddPhone" widgetVar="dlgAddPhone" resizable="false" header="Registrar Telefono" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="SKU: " />
+                            <p:inputText id="addSKU" value="#{phoneBean.phoneSku}" />
+                            <h:outputText value="Precio unitario: " />
+                            <p:inputText id="addUnitPrice" value="#{phoneBean.phoneUnitPrice}" />
+                            <h:outputText value="Descripción: " />
+                            <p:inputText id="addDesc" value="#{phoneBean.phoneDesc}" />
+                            <h:outputText value="Almacen: " />
+                            <p:inputText id="addStock" value="#{phoneBean.phoneStock}" />
+                            <h:outputText value="OS: " />
+                            <p:selectOneMenu id="addOs" value="#{phoneBean.listOsIdListOs}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Sistema Operativo -" />
+                                <f:selectItems value="#{listOsBean.allListOs}" var="ltosAdd"
+                                               itemValue="#{ltosAdd.idListOs}" itemLabel="#{ltosAdd.osName}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Marca: " />
+                            <p:selectOneMenu id="addTrademark" value="#{listTrademarkBean.idListTrademark}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona una Marca -" />
+                                <f:selectItems value="#{listTrademarkBean.allListTrademark}" var="lttkAdd"
+                                               itemValue="#{lttkAdd.idListTrademark}" itemLabel="#{lttkAdd.trademarkName}" />
+                                <p:ajax update="addModel" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Modelo: " />
+                            <p:selectOneMenu id="addModel" value="#{phoneBean.listModelIdListModel}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Modelo -" />
+                                <f:selectItems value="#{listModelBean.getByListTrademark(listTrademarkBean.idListTrademark)}" var="ltmlAdd"
+                                               itemValue="#{ltmlAdd.idListModel}" itemLabel="#{ltmlAdd.modelName}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Guardar"
+                                             icon="ui-icon-disk"
+                                             action="#{phoneBean.addPhone()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="Phone, :messages"
+                                             oncomplete="PF('dlgAddPhone').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgUpdPhone" widgetVar="dlgUpdPhone" resizable="false" header="Actualizar Telefono" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="ID " />
+                            <p:inputText id="updId" value="#{PhoneBean.idPhone}" readonly="true" />
+                            <h:outputText value="SKU: " />
+                            <p:inputText id="updSKU" value="#{phoneBean.phoneSku}" />
+                            <h:outputText value="Precio unitario: " />
+                            <p:inputText id="updUnitPrice" value="#{phoneBean.phoneUnitPrice}" />
+                            <h:outputText value="Descripción: " />
+                            <p:inputText id="updDesc" value="#{phoneBean.phoneDesc}" />
+                            <h:outputText value="Almacen: " />
+                            <p:inputText id="updStock" value="#{phoneBean.phoneStock}" />
+                            <h:outputText value="OS: " />
+                            <p:selectOneMenu id="updOs" value="#{phoneBean.listOsIdListOs}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Sistema Operativo -" />
+                                <f:selectItems value="#{listOsBean.allListOs}" var="ltosUpd"
+                                               itemValue="#{ltosUpd.idListOs}" itemLabel="#{ltosUpd.osName}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Marca: " />
+                            <p:selectOneMenu id="updTrademark" value="#{listTrademarkBean.idListTrademark}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona una Marca -" />
+                                <f:selectItems value="#{listTrademarkBean.allListTrademark}" var="lttkUpd"
+                                               itemValue="#{lttkUpd.idListTrademark}" itemLabel="#{lttkUpd.trademarkName}" />
+                                <p:ajax update="updModel" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Modelo: " />
+                            <p:selectOneMenu id="updModel" value="#{phoneBean.listModelIdListModel}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Modelo -" />
+                                <f:selectItems value="#{listModelBean.getByListTrademark(listTrademarkBean.idListTrademark)}" var="ltmlUpd"
+                                               itemValue="#{ltmlUpd.idListModel}" itemLabel="#{ltmlUpd.modelName}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Actualizar"
+                                             icon="ui-icon-refresh"
+                                             action="#{phoneBean.modifyPhone()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="Phone, :messages"
+                                             oncomplete="PF('dlgUpdPhone').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form prependId="false">
+                    
+                    <p:dataTable value="#{phoneBean.readAllPhone}"
+                                 var="pe"
+                                 id="Phone"
+                                 disabledSelection="true"
+                                 editMode="false"
+                                 rowKey="#{pe.idPhone}"
+                                 emptyMessage="Ningun telefono"
+                                 rows="12"
+                                 lazy="true"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 scrollable="true"
+                                 scrollHeight="350"
+                                 selectionMode="single" >
+
+                        <p:column headerText="SKU" >
+                            <h:outputText value="#{pe.phoneSku}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Precio Unitario" >
+                            <h:outputText value="#{pe.phoneUnitPrice}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Descripción" >
+                            <h:outputText value="#{pe.phoneDesc}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Almacen" >
+                            <h:outputText value="#{pe.phoneStock}"/>
+                        </p:column>
+                        
+                        <p:column headerText="OS" >
+                            <h:outputText value="#{listOsBean.readOsById(pe.listOsIdListOs).osName}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Modelo" >
+                            <h:outputText value="#{listModelBean.readModelById(pe.listModelIdListModel).modelName}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modificar"/>
+                            </f:facet>
+                            <p:commandLink id="updPhone"
+                                           value="Modificar"
+                                           action="#{phoneBean.prepareModifyPhone()}" 
+                                           onclick="PF('dlgUpdPhone').show();"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Borrar"/>
+                            </f:facet>
+                            <p:commandLink id="deletePhone"
+                                           value="Borrar"
+                                           action="#{phoneBean.dropPhone()}"
+                                           onclick="if (!confirm('Desea borrar #{pe.phoneSku}?'))
+                                                       return false;"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"
+                                           update="Phone, :messages" />
+                        </p:column>
+                        
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+
+        <ui:composition template="./../WEB-INF/restrito.xhtml">
+
+            <ui:define name="titulo">
+                Ordenes Por Usuario
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                Id User: <h:outputText value="#{usersBean.idUsers}" />
+
+                <h:form prependId="false">
+
+                    <p:dataTable value="#{addressBean.readByIdUser(usersBean.idUsers)}"
+                                 var="as"
+                                 id="address"
+                                 disabledSelection="true"
+                                 editMode="false"
+                                 rowKey="#{as.idAddress}"
+                                 emptyMessage="Sin direccion"
+                                 rows="12"
+                                 lazy="true"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 scrollable="true"
+                                 scrollHeight="350"
+                                 selectionMode="single" >
+
+                        <p:column headerText="País" >
+                            <h:outputText value="#{listCountryBean.readCountryById(listStateBean.readStateById(listTownBean.readTownById(listCityBean.readCityById(as.idListCity).idListTown).idListState).idListCountry).countryName}"/>
+                        </p:column>
+
+                        <p:column headerText="Estado" >
+                            <h:outputText value="#{listStateBean.readStateById(listTownBean.readTownById(listCityBean.readCityById(as.idListCity).idListTown).idListState).stateName}"/>
+                        </p:column>
+
+                        <p:column headerText="Municipio" >
+                            <h:outputText value="#{listTownBean.readTownById(listCityBean.readCityById(as.idListCity).idListTown).townName}"/>
+                        </p:column>
+
+                        <p:column headerText="Colonia" >
+                            <h:outputText value="#{listCityBean.readCityById(as.idListCity).cityName}"/>
+                        </p:column>
+
+                        <p:column headerText="Calle" >
+                            <h:outputText value="#{as.street}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Entre Calle A" >
+                            <h:outputText value="#{as.betweenStreetA}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Entre Calle B" >
+                            <h:outputText value="#{as.betweenStreetB}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    
+                    <p:dataTable value="#{orderBean.getReadByIdAddress(addressBean.idAddress)}"
+                                 var="ors"
+                                 id="order"
+                                 disabledSelection="true"
+                                 editMode="false"
+                                 rowKey="#{ors.idOrder}"
+                                 emptyMessage="Sin compras"
+                                 rows="12"
+                                 lazy="true"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 scrollable="true"
+                                 scrollHeight="350"
+                                 selectionMode="single" >
+
+                        <p:column headerText="Fecha de compra" >
+                            <h:outputText value="#{ors.datePurchase}"/>
+                        </p:column>
+
+                        <p:column headerText="Total" >
+                            <h:outputText value="#{ors.totalAmount}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Detalles"/>
+                            </f:facet>
+                            <h:link value="Detalles" outcome="details" >
+                                <f:param name="idOrderName" value="#{ors.idOrder}" />
+                            </h:link>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

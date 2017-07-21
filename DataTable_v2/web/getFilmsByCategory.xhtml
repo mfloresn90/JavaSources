@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>.: Films by Category :.</title>
+    </h:head>
+    <h:body>
+        <p:panel id="listaPanel" header="Lista de Films" style="margin-bottom:20px">
+            <h:form>
+                <p:dataTable id="tableFilms" var="filmsByCategory"
+                             value="#{filmsByCategoryBean.films}"
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} 
+                             {NextPageLink} {LastPageLink} 
+                             {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Category">
+                        <h:outputText value="#{filmsByCategory.nameCategory}" />
+                    </p:column>
+                    <p:column headerText="Films">
+                        <h:outputText value="#{filmsByCategory.totalMovies}" />
+                    </p:column>
+                </p:dataTable>
+                <p:chart type="bar" model="#{filmsByCategoryBean.barModel}" style="height:300px"/>
+                <h:commandLink>                                                        
+                    <p:graphicImage value="./../images/excel.png" width="24"/>
+                    <p:dataExporter type="xls" target="tableFilms" fileName="FilmsByCategory" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage value="./../images/pdf.png" width="24"/>
+                    <p:dataExporter type="pdf" target="tableFilms" fileName="FilmsByCategory"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage value="./../images/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tableFilms" fileName="FilmsByCategory" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage value="./../images/xml.png" width="24"/>
+                    <p:dataExporter type="xml" target="tableFilms" fileName="FilmsByCategory" />
+                </h:commandLink>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+

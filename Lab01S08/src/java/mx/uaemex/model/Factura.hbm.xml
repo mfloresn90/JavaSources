@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-nov-2015 13:17:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.uaemex.model.Factura" table="Factura" catalog="sesion_08" optimistic-lock="version">
+        <id name="numFactura" type="java.lang.Integer">
+            <column name="numFactura" />
+            <generator class="identity" />
+        </id>
+        <property name="fecha" type="timestamp">
+            <column name="Fecha" length="19" />
+        </property>
+        <property name="subtotal" type="java.lang.Float">
+            <column name="Subtotal" precision="12" scale="0" />
+        </property>
+        <property name="iva" type="java.lang.Float">
+            <column name="IVA" precision="12" scale="0" />
+        </property>
+        <property name="total" type="java.lang.Float">
+            <column name="Total" precision="12" scale="0" />
+        </property>
+        <property name="idCliente" type="int">
+            <column name="idCliente" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

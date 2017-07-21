@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.OrderPhone" table="OrderPhone" catalog="movilNet" optimistic-lock="version">
+        <id name="idOrderPhone" type="java.lang.Integer">
+            <column name="idOrderPhone" />
+            <generator class="identity" />
+        </id>
+        <property name="idPhone" type="java.lang.Integer">
+            <column name="idPhone" />
+        </property>
+        <property name="idOrder" type="java.lang.Integer">
+            <column name="idOrder" />
+        </property>
+        <property name="orderQuantity" type="int">
+            <column name="orderQuantity" not-null="true" />
+        </property>
+        <property name="orderUnitPrice" type="string">
+            <column name="orderUnitPrice" length="16777215" not-null="true" />
+        </property>
+        <property name="orderTotalPhone" type="string">
+            <column name="orderTotalPhone" length="16777215" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+
+        <ui:composition template="./../WEB-INF/restrito.xhtml">
+
+            <ui:define name="titulo">
+                Catálogo de Marcas
+            </ui:define>
+
+            <ui:define name="conteudo">
+                
+                <p:growl id="messages" showDetail="true" />
+
+                <h:form>
+                    <p:commandButton id="newTrademark"
+                                     icon="ui-icon-circle-plus"
+                                     value="Nuevo Registro"
+                                     action="#{listTrademarkBean.clearFields()}"
+                                     onclick="PF('dlgAddTrademark').show();"
+                                     onstart="PF('statusDialog').show()" 
+                                     onsuccess="PF('statusDialog').hide();" />
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgAddTrademark" widgetVar="dlgAddTrademark" resizable="false" header="Registrar Marca" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="Nombre: " />
+                            <p:inputText id="addName" value="#{listTrademarkBean.trademarkName}" />
+                            <h:outputText value="Descripción: " />
+                            <p:inputText id="addDesc" value="#{listTrademarkBean.trademarkDesc}" />
+                            <h:outputText value="Logo: " />
+                            <p:inputText id="addLogo" value="#{listTrademarkBean.trademarkLogo}" />
+                            <p:commandButton value="Guardar"
+                                             icon="ui-icon-disk"
+                                             action="#{listTrademarkBean.addListTrademark()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="listTrademark, :messages"
+                                             oncomplete="PF('dlgAddTrademark').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgUpdTrademark" widgetVar="dlgUpdTrademark" resizable="false" header="Actualizar Marca" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="ID " />
+                            <p:inputText id="updId" value="#{listTrademarkBean.idListTrademark}" readonly="true" />
+                            <h:outputText value="Nombre: " />
+                            <p:inputText id="updName" value="#{listTrademarkBean.trademarkName}" />
+                            <h:outputText value="Descripción: " />
+                            <p:inputText id="updDesc" value="#{listTrademarkBean.trademarkDesc}" />
+                            <h:outputText value="Logo: " />
+                            <p:inputText id="updLogo" value="#{listTrademarkBean.trademarkLogo}" />
+                            <p:commandButton value="Actualizar"
+                                             icon="ui-icon-refresh"
+                                             action="#{listTrademarkBean.modifyListTrademark()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="listTrademark, :messages"
+                                             oncomplete="PF('dlgUpdTrademark').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form prependId="false">
+                    
+                    <p:dataTable value="#{listTrademarkBean.readAllListTrademark}"
+                                 var="listtrademark"
+                                 id="listTrademark"
+                                 disabledSelection="true"
+                                 editMode="false"
+                                 rowKey="#{listtrademark.idListTrademark}"
+                                 emptyMessage="Ninguna marca"
+                                 rows="12"
+                                 lazy="true"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 scrollable="true"
+                                 scrollHeight="350"
+                                 selectionMode="single" >
+
+                        <p:column headerText="ID" >
+                            <h:outputText value="#{listtrademark.idListTrademark}"/>
+                        </p:column>
+
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{listtrademark.trademarkName}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Descripción" >
+                            <h:outputText value="#{listtrademark.trademarkDesc}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Logo" >
+                            <h:outputText value="#{listtrademark.trademarkLogo}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modificar"/>
+                            </f:facet>
+                            <p:commandLink id="updTrademark"
+                                           value="Modificar"
+                                           action="#{listTrademarkBean.prepareModifyListTrademark()}" 
+                                           onclick="PF('dlgUpdTrademark').show();"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Borrar"/>
+                            </f:facet>
+                            <p:commandLink id="deleteTrademark"
+                                           value="Borrar"
+                                           action="#{listTrademarkBean.dropListTrademark()}"
+                                           onclick="if (!confirm('Desea borrar #{listtrademark.trademarkName}?'))
+                                                       return false;"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"
+                                           update="listTrademark, :messages" />
+                        </p:column>
+                        
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

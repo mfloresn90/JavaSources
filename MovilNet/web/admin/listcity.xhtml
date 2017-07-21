@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+
+        <ui:composition template="./../WEB-INF/restrito.xhtml">
+
+            <ui:define name="titulo">
+                Catálogo de Colonias
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <p:growl id="messages" showDetail="true" />
+
+                <h:form>
+                    <p:commandButton id="newCity"
+                                     icon="ui-icon-circle-plus"
+                                     value="Nuevo Registro"
+                                     action="#{listCityBean.clearFields()}"
+                                     onclick="PF('dlgAddCity').show();"
+                                     onstart="PF('statusDialog').show()" 
+                                     onsuccess="PF('statusDialog').hide();" />
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgAddCity" widgetVar="dlgAddCity" resizable="false" header="Registrar Ciudad" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="País: " />
+                            <p:selectOneMenu id="addCountry" value="#{listCountryBean.idListCountry}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un País -" />
+                                <f:selectItems value="#{listCountryBean.allListCountry}" var="ltcyAdd"
+                                               itemValue="#{ltcyAdd.idListCountry}" itemLabel="#{ltcyAdd.countryName}" />
+                                <p:ajax update="addState" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Estado: " />
+                            <p:selectOneMenu id="addState" value="#{listTownBean.idListState}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Estado -" />
+                                <f:selectItems value="#{listStateBean.getByListCountry(listCountryBean.idListCountry)}" var="ltseAdd"
+                                               itemValue="#{ltseAdd.idListState}" itemLabel="#{ltseAdd.stateName}" />
+                                <p:ajax update="addTown" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Municipio: " />
+                            <p:selectOneMenu id="addTown" value="#{listCityBean.idListTown}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Municipio -" />
+                                <f:selectItems value="#{listTownBean.getByListState(listTownBean.idListState)}" var="lttnAdd"
+                                               itemValue="#{lttnAdd.idListTown}" itemLabel="#{lttnAdd.townName}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Colonia: " />
+                            <p:inputText id="addCity" value="#{listCityBean.cityName}" />
+                            <p:commandButton value="Guardar"
+                                             icon="ui-icon-disk"
+                                             action="#{listCityBean.addListCity()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="listCity, :messages"
+                                             oncomplete="PF('dlgAddCity').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form>
+                    <p:dialog id="dlgUpdCity" widgetVar="dlgUpdCity" resizable="false" header="Actualizar Ciudad" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="ID " />
+                            <p:inputText id="updId" value="#{listCityBean.idListCity}" readonly="true" />
+                            <h:outputText value="País: " />
+                            <p:selectOneMenu id="updCountry" value="#{listCountryBean.idListCountry}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un País -" />
+                                <f:selectItems value="#{listCountryBean.allListCountry}" var="ltcyUpd"
+                                               itemValue="#{ltcyUpd.idListCountry}" itemLabel="#{ltcyUpd.countryName}" />
+                                <p:ajax update="updState" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Estado: " />
+                            <p:selectOneMenu id="updState" value="#{listTownBean.idListState}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Estado -" />
+                                <f:selectItems value="#{listStateBean.getByListCountry(listCountryBean.idListCountry)}" var="ltseUpd"
+                                               itemValue="#{ltseUpd.idListState}" itemLabel="#{ltseUpd.stateName}" />
+                                <p:ajax update="updTown" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Municipio: " />
+                            <p:selectOneMenu id="updTown" value="#{listCityBean.idListTown}" >
+                                <f:selectItem itemValue="0" itemLabel="- Selecciona un Municipio -" />
+                                <f:selectItems value="#{listTownBean.getByListState(listTownBean.idListState)}" var="lttnUpd"
+                                               itemValue="#{lttnUpd.idListTown}" itemLabel="#{lttnUpd.townName}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Ciudad: " />
+                            <p:inputText id="updCity" value="#{listCityBean.cityName}"/>
+                            <p:commandButton value="Actualizar"
+                                             icon="ui-icon-refresh"
+                                             action="#{listCityBean.modifyListCity()}"
+                                             onstart="PF('statusDialog').show()" 
+                                             onsuccess="PF('statusDialog').hide();"
+                                             update="listCity, :messages"
+                                             oncomplete="PF('dlgUpdCity').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form prependId="false">
+
+                    <p:dataTable value="#{listCityBean.readAllListCity}"
+                                 var="ltcy"
+                                 id="listCity"
+                                 disabledSelection="true"
+                                 editMode="false"
+                                 rowKey="#{ltcy.idListCity}"
+                                 emptyMessage="Ninguna ciudad registrada"
+                                 rows="12"
+                                 lazy="true"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 scrollable="true"
+                                 scrollHeight="350"
+                                 selectionMode="single" >
+
+                        <p:column headerText="ID" >
+                            <h:outputText value="#{ltcy.idListCity}"/>
+                        </p:column>
+
+                        <p:column headerText="Municipio" >
+                            <h:outputText value="#{listTownBean.readTownById(ltcy.idListTown).townName}"/>
+                        </p:column>
+
+                        <p:column headerText="Colonia" >
+                            <h:outputText value="#{ltcy.cityName}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modificar"/>
+                            </f:facet>
+                            <p:commandLink id="updCity"
+                                           value="Modificar"
+                                           action="#{listCityBean.prepareModifyListCity()}" 
+                                           onclick="PF('dlgUpdCity').show();"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Borrar"/>
+                            </f:facet>
+                            <p:commandLink id="deleteCity"
+                                           value="Borrar"
+                                           action="#{listCityBean.dropListCity()}"
+                                           onclick="if (!confirm('Desea borrar #{ltcy.cityName}?'))
+                                                       return false;"
+                                           onstart="PF('statusDialog').show()" 
+                                           onsuccess="PF('statusDialog').hide();"
+                                           update="listCity, :messages" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

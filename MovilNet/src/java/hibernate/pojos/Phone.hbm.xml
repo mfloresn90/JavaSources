@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-nov-2015 20:27:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.pojos.Phone" table="Phone" catalog="movilNet" optimistic-lock="version">
+        <id name="idPhone" type="java.lang.Integer">
+            <column name="idPhone" />
+            <generator class="identity" />
+        </id>
+        <property name="phoneSku" type="string">
+            <column name="phoneSKU" length="45" not-null="true" />
+        </property>
+        <property name="phoneUnitPrice" type="string">
+            <column name="phoneUnitPrice" length="16777215" not-null="true" />
+        </property>
+        <property name="phoneDesc" type="string">
+            <column name="phoneDesc" length="45" not-null="true" />
+        </property>
+        <property name="phoneStock" type="int">
+            <column name="phoneStock" not-null="true" />
+        </property>
+        <property name="listOsIdListOs" type="int">
+            <column name="ListOS_idListOS" not-null="true" />
+        </property>
+        <property name="listModelIdListModel" type="int">
+            <column name="ListModel_idListModel" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

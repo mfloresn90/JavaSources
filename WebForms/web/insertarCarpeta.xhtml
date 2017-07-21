@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/template/masterTemplate.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="idRespondienteForm" prependId="false" >
+            <p:messages autoUpdate="true" showDetail="true" closable="true" globalOnly="true" />
+            <p:growl id="msg" showDetail="true" />
+            <p:outputLabel id="idUserSession" value="#{respondienteSessionBean.setIdUsuario(menuManageBean.login.idUsuario)}" />
+
+            <p:dataTable id="encabezadoUo" value="#{unidadAdministrativaByUsuarioService.getHeader(menuManageBean.login.idUsuario)}"
+                         var="tblHr" emptyMessage="No existen datos" >
+                <p:column headerText="Nombre Completo">
+                    <p:outputLabel id="tblNombre" value="#{tblHr.nombre} #{tblHr.apellidoPaterno} #{tblHr.apellidoMaterno}" />
+                </p:column>
+                <p:column headerText="Unidad Administrativa">
+                    <p:outputLabel id="tblUnidadAdministrativa" value="#{tblHr.identificador}" />
+                </p:column>
+                <p:column headerText="Entidad Federativa">
+                    <p:outputLabel id="tblEntidadFederativa" value="#{tblHr.nombreEstado}" />
+                </p:column>
+                <p:column headerText="Delegación o Municipio">
+                    <p:outputLabel id="tblMunicipio" value="#{tblHr.nombreMunicipio}" />
+                </p:column>
+                <p:column headerText="Averiguación previa">
+                    <p:outputLabel id="tblAveriguacion" value="#{tblHr.nombreMunicipio}" />
+                </p:column>
+                <p:column headerText="Número de registro (folio o llamado)">
+                    <p:outputLabel id="tblfolio" value="#{tblHr.nombreMunicipio}" />
+                </p:column>
+                <p:column headerText="Fecha y hora de llegada">
+                    <p:outputLabel id="tblFecha" value="#{tblHr.nombreMunicipio}" />
+                </p:column>
+                <p:column headerText="Estatus">
+                    <p:outputLabel id="tblEstatus" value="#{tblHr.nombreMunicipio}" />
+                </p:column>
+            </p:dataTable>
+
+            <br /><br />
+
+            <p:fieldset legend="Crear carpeta de incidente" style="margin-bottom:20px">
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton id="newAcordonamiento" value="Nuevo incidente" icon="ui-icon-circle-plus" >
+                            <f:ajax listener="#{respondienteSessionBean.onButtonAddAcordonamientoFileClick}" execute="tblAcordonamiento" render="tblAcordonamiento" /> 
+                        </p:commandButton>
+                    </f:facet>
+                </p:toolbar>
+                <p:dataTable id="tblAcordonamiento" var="tblAcordonamiento" value="#{respondienteSessionBean.acordonamientoArchivos}"
+                             emptyMessage="No existen archivos" >
+                    <p:column headerText="Descripción del archivo" colspan="1" >
+                        <p:inputTextarea rows="5" cols="30" counter="cntTblAcordonamientoDesc" placeholder="Descripción del archivo"
+                                         value="#{tblAcordonamiento.descripcion}" maxlength="150" counterTemplate="{0} letras restantes." 
+                                         autoResize="false" >
+                        </p:inputTextarea>
+                        <h:outputText id="cntTblAcordonamientoDesc" />
+                    </p:column>
+                    <p:column style="width: 32px;" >
+                        <p:commandButton title="Guardar" icon="ui-icon-check" >
+                            <f:ajax listener="#{respondienteSessionBean.onButtonRemoveAcordonamientoFileClick(tblAcordonamiento)}"
+                                    execute="tblAcordonamiento" render="tblAcordonamiento" /> 
+                        </p:commandButton>
+                    </p:column>
+                    <p:column style="width: 32px;" >
+                        <p:commandButton title="Borrar" icon="ui-icon-close" >
+                            <f:ajax listener="#{respondienteSessionBean.onButtonRemoveAcordonamientoFileClick(tblAcordonamiento)}"
+                                    execute="tblAcordonamiento" render="tblAcordonamiento" /> 
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </p:fieldset>
+
+            <p:fieldset legend="Incidentes actuales" style="margin-bottom:20px">
+                <p:dataList value="#{dataListView.cars1}" var="car" type="ordered" emptyMessage="No existen datos" >
+                    #{car.brand}, #{car.year}
+                </p:dataList>
+
+            </p:fieldset>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
